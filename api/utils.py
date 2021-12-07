@@ -45,6 +45,14 @@ def filter_by_filters(data_item, filters):
 def get_value_by_period(start_date, end_date, sample_type, old_value, filters):
     dates_for_this_period = [date.strftime('%Y-%m-%d') for date in date_range(start_date, end_date, 'daily') if
                              start_date < date <= end_date]
+    datas_for_this_period = []
+    data_in_period = False
+    for data_item in data:
+        if data_item['Timestamp'] in dates_for_this_period:
+            datas_for_this_period.append(data_item)
+            data_in_period = True
+        elif data_in_period:
+            break
     value = len(
         tuple(
             i for i in tuple(
