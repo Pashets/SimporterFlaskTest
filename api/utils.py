@@ -53,11 +53,5 @@ def get_value_by_period(start_date, end_date, sample_type, old_value, filters):
             data_in_period = True
         elif data_in_period:
             break
-    value = len(
-        tuple(
-            i for i in tuple(
-                filter(lambda i: i['Timestamp'] in dates_for_this_period, data)
-            ) if filter_by_filters(i, filters)
-        )
-    )
+    value = len(tuple(i for i in datas_for_this_period if filter_by_filters(i, filters)))
     return value if sample_type == 'usual' else value + old_value
